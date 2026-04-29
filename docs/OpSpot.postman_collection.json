@@ -1,0 +1,199 @@
+{
+  "info": {
+    "name": "OpSpot API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Import Events",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/events/import",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"json\": \"{\\\"items\\\":[{\\\"title\\\":\\\"DevFest Bangalore 2026\\\",\\\"description\\\":\\\"Google Developer Festival with sessions on AI, Cloud and Android\\\",\\\"organizer\\\":\\\"GDG Bangalore\\\",\\\"eventType\\\":\\\"EVENT\\\",\\\"workMode\\\":\\\"OFFLINE\\\",\\\"city\\\":\\\"Bangalore\\\",\\\"theme\\\":\\\"AI & Cloud\\\",\\\"startDate\\\":\\\"2026-05-15\\\",\\\"endDate\\\":\\\"2026-05-16\\\",\\\"registrationDeadline\\\":\\\"2026-05-10\\\",\\\"professionalAllowed\\\":true,\\\"registrationLink\\\":\\\"https://devfest.gdgbangalore.in/register\\\"},{\\\"title\\\":\\\"Smart India Hackathon 2026\\\",\\\"description\\\":\\\"National level hackathon organized by Government of India\\\",\\\"organizer\\\":\\\"Ministry of Education\\\",\\\"eventType\\\":\\\"HACKATHON\\\",\\\"workMode\\\":\\\"HYBRID\\\",\\\"city\\\":\\\"Multiple Cities\\\",\\\"theme\\\":\\\"GovTech\\\",\\\"startDate\\\":\\\"2026-06-01\\\",\\\"endDate\\\":\\\"2026-06-03\\\",\\\"registrationDeadline\\\":\\\"2026-05-20\\\",\\\"professionalAllowed\\\":false,\\\"registrationLink\\\":\\\"https://sih.gov.in/register\\\"}]}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Events (with filters)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/events?city=Bangalore&eventType=EVENT&workMode=OFFLINE&showRejected=false",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "events"],
+              "query": [
+                { "key": "city", "value": "Bangalore" },
+                { "key": "eventType", "value": "EVENT" },
+                { "key": "workMode", "value": "OFFLINE" },
+                { "key": "showRejected", "value": "false" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Event Status",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/events/1/status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPLIED\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "Import Jobs",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/jobs/import",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"json\": \"{\\\"items\\\":[{\\\"title\\\":\\\"Senior Software Engineer - Java/Spring Boot\\\",\\\"company\\\":\\\"Razorpay\\\",\\\"location\\\":\\\"Bangalore\\\",\\\"workMode\\\":\\\"HYBRID\\\",\\\"skills\\\":\\\"Java,Spring Boot,Kafka,Distributed Systems,MySQL\\\",\\\"experienceMin\\\":3,\\\"experienceMax\\\":6,\\\"salaryRange\\\":\\\"25-40 LPA\\\",\\\"description\\\":\\\"Work on core payments infrastructure handling millions of transactions\\\",\\\"jobLink\\\":\\\"https://razorpay.com/jobs/senior-sde-java\\\"},{\\\"title\\\":\\\"Backend Engineer - Fintech\\\",\\\"company\\\":\\\"PhonePe\\\",\\\"location\\\":\\\"Bangalore\\\",\\\"workMode\\\":\\\"ONLINE\\\",\\\"skills\\\":\\\"Java,Spring Boot,Microservices,PostgreSQL,Redis\\\",\\\"experienceMin\\\":2,\\\"experienceMax\\\":5,\\\"salaryRange\\\":\\\"20-35 LPA\\\",\\\"description\\\":\\\"Build scalable backend services for UPI and wallet products\\\",\\\"jobLink\\\":\\\"https://phonepe.com/careers/backend-engineer\\\"}]}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Jobs (with filters)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/jobs?location=Bangalore&workMode=HYBRID&skills=Java&experienceMin=2&experienceMax=6&showRejected=false",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "jobs"],
+              "query": [
+                { "key": "location", "value": "Bangalore" },
+                { "key": "workMode", "value": "HYBRID" },
+                { "key": "skills", "value": "Java" },
+                { "key": "experienceMin", "value": "2" },
+                { "key": "experienceMax", "value": "6" },
+                { "key": "showRejected", "value": "false" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Job Status",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/jobs/1/status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPLIED\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Course Offers",
+      "item": [
+        {
+          "name": "Import Course Offers",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/course-offers/import",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"json\": \"{\\\"items\\\":[{\\\"title\\\":\\\"Apache Kafka Series - Learn Apache Kafka for Beginners v3\\\",\\\"platform\\\":\\\"Udemy\\\",\\\"topic\\\":\\\"Kafka\\\",\\\"originalPrice\\\":3499.00,\\\"discountedPrice\\\":499.00,\\\"isFree\\\":false,\\\"validTill\\\":\\\"2026-05-31\\\",\\\"description\\\":\\\"Complete Kafka course covering producers, consumers, streams and connect\\\",\\\"offerLink\\\":\\\"https://udemy.com/course/apache-kafka/learn\\\"},{\\\"title\\\":\\\"Distributed Systems & Cloud Computing\\\",\\\"platform\\\":\\\"Coursera\\\",\\\"topic\\\":\\\"Distributed Systems\\\",\\\"originalPrice\\\":0.00,\\\"discountedPrice\\\":0.00,\\\"isFree\\\":true,\\\"validTill\\\":null,\\\"description\\\":\\\"University of Illinois course on distributed computing fundamentals\\\",\\\"offerLink\\\":\\\"https://coursera.org/learn/cloud-computing\\\"}]}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Course Offers (with filters)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/course-offers?platform=Udemy&topic=Kafka&isFree=false&showRejected=false",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "course-offers"],
+              "query": [
+                { "key": "platform", "value": "Udemy" },
+                { "key": "topic", "value": "Kafka" },
+                { "key": "isFree", "value": "false" },
+                { "key": "showRejected", "value": "false" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Course Offer Status",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/course-offers/1/status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"REJECTED\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Tool Offers",
+      "item": [
+        {
+          "name": "Import AI Tool Offers",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/ai-offers/import",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"json\": \"{\\\"items\\\":[{\\\"toolName\\\":\\\"Cursor\\\",\\\"offerTitle\\\":\\\"Cursor Pro - 3 Months Free for Students & Professionals\\\",\\\"isFree\\\":true,\\\"forProfessionals\\\":true,\\\"validTill\\\":\\\"2026-06-30\\\",\\\"description\\\":\\\"AI-powered code editor with GPT-4 integration, free 3-month trial via GitHub Education\\\",\\\"offerLink\\\":\\\"https://cursor.sh/pricing/education\\\"},{\\\"toolName\\\":\\\"GitHub Copilot\\\",\\\"offerTitle\\\":\\\"GitHub Copilot Individual - 30 Day Free Trial\\\",\\\"isFree\\\":false,\\\"forProfessionals\\\":true,\\\"validTill\\\":\\\"2026-12-31\\\",\\\"description\\\":\\\"AI pair programmer, 30-day free trial then $10/month\\\",\\\"offerLink\\\":\\\"https://github.com/features/copilot/signup\\\"}]}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get AI Tool Offers (with filters)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/ai-offers?isFree=true&forProfessionals=true&showRejected=false",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ai-offers"],
+              "query": [
+                { "key": "isFree", "value": "true" },
+                { "key": "forProfessionals", "value": "true" },
+                { "key": "showRejected", "value": "false" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update AI Tool Offer Status",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/ai-offers/1/status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"SAVED\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

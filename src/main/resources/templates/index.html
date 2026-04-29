@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpSpot — Opportunity Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
+        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #1f2937; } ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+
+<!-- Header -->
+<header class="bg-gray-800 border-b border-gray-700 px-6 py-4 flex items-center justify-between">
+    <div>
+        <h1 class="text-xl font-bold text-indigo-400 tracking-tight">OpSpot</h1>
+        <p class="text-gray-500 text-xs mt-0.5">Opportunity Tracker — Events · Jobs · Courses · AI Tools</p>
+    </div>
+</header>
+
+<!-- Tab Navigation -->
+<nav class="bg-gray-800 border-b border-gray-700 px-6">
+    <div class="flex space-x-0">
+        <button onclick="switchTab('events')" id="tab-events"
+            class="tab-btn px-5 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition-colors">
+            🗓 Events
+        </button>
+        <button onclick="switchTab('jobs')" id="tab-jobs"
+            class="tab-btn px-5 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition-colors">
+            💼 Jobs
+        </button>
+        <button onclick="switchTab('course-offers')" id="tab-course-offers"
+            class="tab-btn px-5 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition-colors">
+            📚 Course Offers
+        </button>
+        <button onclick="switchTab('ai-offers')" id="tab-ai-offers"
+            class="tab-btn px-5 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition-colors">
+            🤖 AI Tool Offers
+        </button>
+    </div>
+</nav>
+
+<!-- ===================== EVENTS PANEL ===================== -->
+<div id="panel-events" class="tab-panel p-6">
+    <div class="bg-gray-800 border border-gray-700 rounded-xl p-4 mb-5">
+        <div class="flex flex-wrap gap-3 items-end">
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">City</label>
+                <input id="ev-city" type="text" placeholder="e.g. Bangalore"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Type</label>
+                <select id="ev-eventType" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+                    <option value="">All Types</option>
+                    <option value="EVENT">Event</option>
+                    <option value="HACKATHON">Hackathon</option>
+                </select>
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Mode</label>
+                <select id="ev-workMode" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+                    <option value="">All Modes</option>
+                    <option value="ONLINE">Online</option>
+                    <option value="OFFLINE">Offline</option>
+                    <option value="HYBRID">Hybrid</option>
+                </select>
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Theme</label>
+                <input id="ev-theme" type="text" placeholder="e.g. AI & Cloud"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Start From</label>
+                <input id="ev-startDateFrom" type="date"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Start To</label>
+                <input id="ev-startDateTo" type="date"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Professionals</label>
+                <select id="ev-professionalAllowed" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+                    <option value="">Any</option>
+                    <option value="true">Allowed</option>
+                    <option value="false">Not Allowed</option>
+                </select>
+            </div>
+            <div class="flex items-center gap-2 pb-0.5">
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="ev-showRejected" class="sr-only peer" onchange="fetchEvents()">
+                    <div class="w-9 h-5 bg-gray-600 rounded-full peer peer-checked:bg-indigo-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-4"></div>
+                </label>
+                <span class="text-xs text-gray-400">Show Rejected</span>
+            </div>
+            <div class="flex gap-2 ml-auto">
+                <button onclick="fetchEvents()"
+                    class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition-colors">
+                    Fetch Results
+                </button>
+                <button onclick="openImportModal('events')"
+                    class="px-4 py-1.5 bg-gray-700 hover:bg-gray-600 text-gray-200 text-sm font-medium rounded-lg border border-gray-600 transition-colors">
+                    Import JSON
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="events-results" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-600">
+            <p class="text-sm">Use filters and click "Fetch Results", or "Import JSON" to load data.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== JOBS PANEL ===================== -->
+<div id="panel-jobs" class="tab-panel p-6">
+    <div class="bg-gray-800 border border-gray-700 rounded-xl p-4 mb-5">
+        <div class="flex flex-wrap gap-3 items-end">
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Location</label>
+                <input id="job-location" type="text" placeholder="e.g. Bangalore"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Mode</label>
+                <select id="job-workMode" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+                    <option value="">All Modes</option>
+                    <option value="ONLINE">Remote</option>
+                    <option value="OFFLINE">On-site</option>
+                    <option value="HYBRID">Hybrid</option>
+                </select>
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Skill</label>
+                <input id="job-skills" type="text" placeholder="e.g. Kafka"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Min Exp (yrs)</label>
+                <input id="job-experienceMin" type="number" min="0" max="20" placeholder="0"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-28">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Max Exp (yrs)</label>
+                <input id="job-experienceMax" type="number" min="0" max="20" placeholder="10"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-28">
+            </div>
+            <div class="flex items-center gap-2 pb-0.5">
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="job-showRejected" class="sr-only peer" onchange="fetchJobs()">
+                    <div class="w-9 h-5 bg-gray-600 rounded-full peer peer-checked:bg-indigo-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-4"></div>
+                </label>
+                <span class="text-xs text-gray-400">Show Rejected</span>
+            </div>
+            <div class="flex gap-2 ml-auto">
+                <button onclick="fetchJobs()"
+                    class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition-colors">
+                    Fetch Results
+                </button>
+                <button onclick="openImportModal('jobs')"
+                    class="px-4 py-1.5 bg-gray-700 hover:bg-gray-600 text-gray-200 text-sm font-medium rounded-lg border border-gray-600 transition-colors">
+                    Import JSON
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="jobs-results" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-600">
+            <p class="text-sm">Use filters and click "Fetch Results", or "Import JSON" to load data.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== COURSE OFFERS PANEL ===================== -->
+<div id="panel-course-offers" class="tab-panel p-6">
+    <div class="bg-gray-800 border border-gray-700 rounded-xl p-4 mb-5">
+        <div class="flex flex-wrap gap-3 items-end">
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Platform</label>
+                <input id="co-platform" type="text" placeholder="e.g. Udemy"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Topic</label>
+                <input id="co-topic" type="text" placeholder="e.g. Kafka"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Max Price (₹)</label>
+                <input id="co-maxPrice" type="number" min="0" placeholder="e.g. 999"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-32">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Availability</label>
+                <select id="co-isFree" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+                    <option value="">All</option>
+                    <option value="true">Free Only</option>
+                    <option value="false">Paid Only</option>
+                </select>
+            </div>
+            <div class="flex items-center gap-2 pb-0.5">
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="co-showRejected" class="sr-only peer" onchange="fetchCourseOffers()">
+                    <div class="w-9 h-5 bg-gray-600 rounded-full peer peer-checked:bg-indigo-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-4"></div>
+                </label>
+                <span class="text-xs text-gray-400">Show Rejected</span>
+            </div>
+            <div class="flex gap-2 ml-auto">
+                <button onclick="fetchCourseOffers()"
+                    class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition-colors">
+                    Fetch Results
+                </button>
+                <button onclick="openImportModal('course-offers')"
+                    class="px-4 py-1.5 bg-gray-700 hover:bg-gray-600 text-gray-200 text-sm font-medium rounded-lg border border-gray-600 transition-colors">
+                    Import JSON
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="course-offers-results" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-600">
+            <p class="text-sm">Use filters and click "Fetch Results", or "Import JSON" to load data.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== AI TOOL OFFERS PANEL ===================== -->
+<div id="panel-ai-offers" class="tab-panel p-6">
+    <div class="bg-gray-800 border border-gray-700 rounded-xl p-4 mb-5">
+        <div class="flex flex-wrap gap-3 items-end">
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Tool Name</label>
+                <input id="ai-toolName" type="text" placeholder="e.g. Cursor"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Pricing</label>
+                <select id="ai-isFree" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+                    <option value="">All</option>
+                    <option value="true">Free Only</option>
+                    <option value="false">Paid Only</option>
+                </select>
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">For Professionals</label>
+                <select id="ai-forProfessionals" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+                    <option value="">Any</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div class="flex items-center gap-2 pb-0.5">
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="ai-showRejected" class="sr-only peer" onchange="fetchAIOffers()">
+                    <div class="w-9 h-5 bg-gray-600 rounded-full peer peer-checked:bg-indigo-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-4"></div>
+                </label>
+                <span class="text-xs text-gray-400">Show Rejected</span>
+            </div>
+            <div class="flex gap-2 ml-auto">
+                <button onclick="fetchAIOffers()"
+                    class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition-colors">
+                    Fetch Results
+                </button>
+                <button onclick="openImportModal('ai-offers')"
+                    class="px-4 py-1.5 bg-gray-700 hover:bg-gray-600 text-gray-200 text-sm font-medium rounded-lg border border-gray-600 transition-colors">
+                    Import JSON
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="ai-offers-results" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-600">
+            <p class="text-sm">Use filters and click "Fetch Results", or "Import JSON" to load data.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== IMPORT MODAL ===================== -->
+<div id="import-modal" class="hidden fixed inset-0 z-40 flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeImportModal()"></div>
+    <div class="relative z-50 bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl w-full max-w-2xl mx-4 p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-base font-semibold text-white">Import JSON</h2>
+            <button onclick="closeImportModal()" class="text-gray-400 hover:text-white transition-colors text-lg">✕</button>
+        </div>
+        <p class="text-xs text-gray-400 mb-3">Paste the JSON from Gemini below. Use the schema from <code class="text-indigo-400">docs/json-schemas/</code> as your prompt template.</p>
+        <textarea id="import-json-input" rows="14"
+            placeholder='{ "items": [ { ... } ] }'
+            class="w-full bg-gray-900 border border-gray-600 rounded-xl px-4 py-3 text-sm text-gray-100 font-mono placeholder-gray-600 focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+        <div class="flex justify-end gap-3 mt-4">
+            <button onclick="closeImportModal()"
+                class="px-4 py-2 text-sm text-gray-400 hover:text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
+                Cancel
+            </button>
+            <button id="import-submit-btn" onclick="submitImport()"
+                class="px-5 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors">
+                Import
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== TOAST ===================== -->
+<div id="toast" class="hidden fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl text-sm font-medium shadow-xl max-w-sm"></div>
+
+<!-- Scripts -->
+<script src="/js/api.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/jobs.js"></script>
+<script src="/js/course-offers.js"></script>
+<script src="/js/ai-offers.js"></script>
+<script>
+    switchTab('events');
+</script>
+</body>
+</html>

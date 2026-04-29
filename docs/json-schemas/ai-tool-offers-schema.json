@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "toolName": "Cursor",
+      "offerTitle": "Cursor Pro - 3 Months Free for Students & Professionals",
+      "isFree": true,
+      "forProfessionals": true,
+      "validTill": "2026-06-30",
+      "description": "AI-powered code editor with GPT-4 integration, free 3-month trial via GitHub Education",
+      "offerLink": "https://cursor.sh/pricing/education"
+    },
+    {
+      "toolName": "GitHub Copilot",
+      "offerTitle": "GitHub Copilot Individual - 30 Day Free Trial",
+      "isFree": false,
+      "forProfessionals": true,
+      "validTill": "2026-12-31",
+      "description": "AI pair programmer, 30-day free trial then $10/month",
+      "offerLink": "https://github.com/features/copilot/signup"
+    }
+  ]
+}

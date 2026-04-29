@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "title": "DevFest Bangalore 2026",
+      "description": "Google Developer Festival with sessions on AI, Cloud and Android",
+      "organizer": "GDG Bangalore",
+      "eventType": "EVENT",
+      "workMode": "OFFLINE",
+      "city": "Bangalore",
+      "theme": "AI & Cloud",
+      "startDate": "2026-05-15",
+      "endDate": "2026-05-16",
+      "registrationDeadline": "2026-05-10",
+      "professionalAllowed": true,
+      "registrationLink": "https://devfest.gdgbangalore.in/register"
+    },
+    {
+      "title": "Smart India Hackathon 2026",
+      "description": "National level hackathon organized by Government of India",
+      "organizer": "Ministry of Education",
+      "eventType": "HACKATHON",
+      "workMode": "HYBRID",
+      "city": "Multiple Cities",
+      "theme": "GovTech",
+      "startDate": "2026-06-01",
+      "endDate": "2026-06-03",
+      "registrationDeadline": "2026-05-20",
+      "professionalAllowed": false,
+      "registrationLink": "https://sih.gov.in/register"
+    }
+  ]
+}

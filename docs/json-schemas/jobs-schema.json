@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "title": "Senior Software Engineer - Java/Spring Boot",
+      "company": "Razorpay",
+      "location": "Bangalore",
+      "workMode": "HYBRID",
+      "skills": "Java,Spring Boot,Kafka,Distributed Systems,MySQL",
+      "experienceMin": 3,
+      "experienceMax": 6,
+      "salaryRange": "25-40 LPA",
+      "description": "Work on core payments infrastructure handling millions of transactions",
+      "jobLink": "https://razorpay.com/jobs/senior-sde-java"
+    },
+    {
+      "title": "Backend Engineer - Fintech",
+      "company": "PhonePe",
+      "location": "Bangalore",
+      "workMode": "ONLINE",
+      "skills": "Java,Spring Boot,Microservices,PostgreSQL,Redis",
+      "experienceMin": 2,
+      "experienceMax": 5,
+      "salaryRange": "20-35 LPA",
+      "description": "Build scalable backend services for UPI and wallet products",
+      "jobLink": "https://phonepe.com/careers/backend-engineer"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "title": "Apache Kafka Series - Learn Apache Kafka for Beginners v3",
+      "platform": "Udemy",
+      "topic": "Kafka",
+      "originalPrice": 3499.00,
+      "discountedPrice": 499.00,
+      "isFree": false,
+      "validTill": "2026-05-31",
+      "description": "Complete Kafka course covering producers, consumers, streams and connect",
+      "offerLink": "https://udemy.com/course/apache-kafka/learn"
+    },
+    {
+      "title": "Distributed Systems & Cloud Computing",
+      "platform": "Coursera",
+      "topic": "Distributed Systems",
+      "originalPrice": 0.00,
+      "discountedPrice": 0.00,
+      "isFree": true,
+      "validTill": null,
+      "description": "University of Illinois course on distributed computing fundamentals",
+      "offerLink": "https://coursera.org/learn/cloud-computing"
+    }
+  ]
+}
