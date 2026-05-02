@@ -7,12 +7,17 @@
       "eventType": "EVENT",
       "workMode": "OFFLINE",
       "city": "Bangalore",
-      "theme": "AI & Cloud",
+      "themes": ["AI", "Cloud", "Android"],
+      "problemStatements": [],
       "startDate": "2026-05-15",
       "endDate": "2026-05-16",
       "registrationDeadline": "2026-05-10",
+      "studentAllowed": true,
       "professionalAllowed": true,
-      "registrationLink": "https://devfest.gdgbangalore.in/register"
+      "minTeamSize": null,
+      "maxTeamSize": null,
+      "registrationLink": "https://devfest.gdgbangalore.in/register",
+      "phases": []
     },
     {
       "title": "Smart India Hackathon 2026",
@@ -21,12 +26,36 @@
       "eventType": "HACKATHON",
       "workMode": "HYBRID",
       "city": "Multiple Cities",
-      "theme": "GovTech",
+      "themes": ["GovTech", "AgriTech", "HealthTech"],
+      "problemStatements": [
+        "Develop a smart irrigation system using IoT and AI for water conservation",
+        "Build a real-time disease surveillance platform for rural health centres",
+        "Create a multilingual chatbot for citizen grievance redressal"
+      ],
       "startDate": "2026-06-01",
       "endDate": "2026-06-03",
       "registrationDeadline": "2026-05-20",
+      "studentAllowed": true,
       "professionalAllowed": false,
-      "registrationLink": "https://sih.gov.in/register"
+      "minTeamSize": 2,
+      "maxTeamSize": 6,
+      "registrationLink": "https://sih.gov.in/register",
+      "phases": [
+        {
+          "phaseName": "Internal Hackathon",
+          "startDate": "2026-05-25",
+          "endDate": "2026-05-26",
+          "location": "College Campus",
+          "phaseOrder": 1
+        },
+        {
+          "phaseName": "Grand Finale",
+          "startDate": "2026-06-01",
+          "endDate": "2026-06-03",
+          "location": "IIT Delhi",
+          "phaseOrder": 2
+        }
+      ]
     }
   ]
 }

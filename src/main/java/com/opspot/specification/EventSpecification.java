@@ -3,6 +3,8 @@ package com.opspot.specification;
 import com.opspot.dto.event.EventFilterParams;
 import com.opspot.entity.Event;
 import com.opspot.enums.ApplicationStatus;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.ListJoin;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -26,8 +28,9 @@ public class EventSpecification {
                 predicates.add(cb.equal(root.get("workMode"), params.getWorkMode()));
             }
             if (params.getTheme() != null && !params.getTheme().isBlank()) {
-                predicates.add(cb.like(cb.lower(root.get("theme")),
-                        "%" + params.getTheme().toLowerCase() + "%"));
+                query.distinct(true);
+                ListJoin<Event, String> themesJoin = root.joinList("themes", JoinType.LEFT);
+                predicates.add(cb.like(cb.lower(themesJoin), "%" + params.getTheme().toLowerCase() + "%"));
             }
             if (params.getStartDateFrom() != null) {
                 predicates.add(cb.greaterThanOrEqualTo(root.get("startDate"), params.getStartDateFrom()));

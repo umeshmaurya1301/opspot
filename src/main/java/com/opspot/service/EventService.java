@@ -8,7 +8,10 @@ import com.opspot.dto.common.ImportSummary;
 import com.opspot.dto.event.EventFilterParams;
 import com.opspot.dto.event.EventImportItem;
 import com.opspot.dto.event.EventResponseDTO;
+import com.opspot.dto.event.HackathonEventDetailsResponseDTO;
+import com.opspot.dto.event.HackathonPhaseImportItem;
 import com.opspot.entity.Event;
+import com.opspot.entity.HackathonPhase;
 import com.opspot.enums.ApplicationStatus;
 import com.opspot.exception.InvalidJsonException;
 import com.opspot.exception.ResourceNotFoundException;
@@ -66,13 +69,30 @@ public class EventService {
                     .eventType(item.getEventType())
                     .workMode(item.getWorkMode())
                     .city(item.getCity())
-                    .theme(item.getTheme())
+                    .themes(item.getThemes() != null ? item.getThemes() : new java.util.ArrayList<>())
+                    .problemStatements(item.getProblemStatements() != null ? item.getProblemStatements() : new java.util.ArrayList<>())
                     .startDate(item.getStartDate())
                     .endDate(item.getEndDate())
                     .registrationDeadline(item.getRegistrationDeadline())
+                    .studentAllowed(item.isStudentAllowed())
                     .professionalAllowed(item.isProfessionalAllowed())
+                    .minTeamSize(item.getMinTeamSize())
+                    .maxTeamSize(item.getMaxTeamSize())
                     .registrationLink(item.getRegistrationLink())
                     .build();
+            if (item.getPhases() != null) {
+                for (HackathonPhaseImportItem phaseItem : item.getPhases()) {
+                    HackathonPhase phase = HackathonPhase.builder()
+                            .event(event)
+                            .phaseName(phaseItem.getPhaseName())
+                            .startDate(phaseItem.getStartDate())
+                            .endDate(phaseItem.getEndDate())
+                            .location(phaseItem.getLocation())
+                            .phaseOrder(phaseItem.getPhaseOrder())
+                            .build();
+                    event.getPhases().add(phase);
+                }
+            }
             eventRepository.save(event);
             inserted++;
             log.info("Imported event: {}", event.getTitle());
@@ -87,6 +107,13 @@ public class EventService {
                 .stream()
                 .map(EventResponseDTO::new)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public HackathonEventDetailsResponseDTO getEventDetails(Long id) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
+        return new HackathonEventDetailsResponseDTO(event);
     }
 
     @Transactional

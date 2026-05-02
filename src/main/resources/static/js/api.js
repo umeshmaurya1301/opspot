@@ -141,7 +141,8 @@ function _triggerFetch(module) {
         'events':        fetchEvents,
         'jobs':          fetchJobs,
         'course-offers': fetchCourseOffers,
-        'ai-offers':     fetchAIOffers
+        'ai-offers':     fetchAIOffers,
+        'marathons':     fetchMarathons
     };
     if (map[module]) map[module]();
 }

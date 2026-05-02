@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-public class EventResponseDTO {
+public class HackathonEventDetailsResponseDTO {
     private final Long id;
     private final String title;
     private final String description;
@@ -31,8 +31,9 @@ public class EventResponseDTO {
     private final String registrationLink;
     private final ApplicationStatus status;
     private final LocalDateTime createdAt;
+    private final List<HackathonPhaseResponseDTO> phases;
 
-    public EventResponseDTO(Event event) {
+    public HackathonEventDetailsResponseDTO(Event event) {
         this.id = event.getId();
         this.title = event.getTitle();
         this.description = event.getDescription();
@@ -52,5 +53,8 @@ public class EventResponseDTO {
         this.registrationLink = event.getRegistrationLink();
         this.status = event.getStatus();
         this.createdAt = event.getCreatedAt();
+        this.phases = event.getPhases().stream()
+                .map(HackathonPhaseResponseDTO::new)
+                .toList();
     }
 }

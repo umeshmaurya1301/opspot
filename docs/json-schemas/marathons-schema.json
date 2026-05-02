@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "title": "Bengaluru Marathon 2026",
+      "description": "Annual flagship marathon through the heart of Bangalore",
+      "organizer": "Procam International",
+      "date": "2026-10-18",
+      "registrationDeadline": "2026-09-30",
+      "entryFee": 1200.00,
+      "isFree": false,
+      "location": "Kanteerava Stadium, Bangalore",
+      "distanceCategories": ["5K", "10K", "21K", "42K"],
+      "registrationLink": "https://bengalurumarathon.procamrunning.in/register"
+    },
+    {
+      "title": "Namma Bengaluru Half Marathon 2026",
+      "description": "Community half marathon celebrating the garden city",
+      "organizer": "Namma Bengaluru Foundation",
+      "date": "2026-03-08",
+      "registrationDeadline": "2026-02-25",
+      "entryFee": 0,
+      "isFree": true,
+      "location": "Cubbon Park, Bangalore",
+      "distanceCategories": ["5K", "10K", "21K"],
+      "registrationLink": "https://nammabengalurumarathon.in/2026"
+    }
+  ]
+}

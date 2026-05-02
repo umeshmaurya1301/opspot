@@ -5,6 +5,7 @@ import com.opspot.dto.common.ImportSummary;
 import com.opspot.dto.common.StatusUpdateRequest;
 import com.opspot.dto.event.EventFilterParams;
 import com.opspot.dto.event.EventResponseDTO;
+import com.opspot.dto.event.HackathonEventDetailsResponseDTO;
 import com.opspot.service.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,11 @@ public class EventController {
     @GetMapping
     public ResponseEntity<List<EventResponseDTO>> getEvents(@ModelAttribute EventFilterParams params) {
         return ResponseEntity.ok(eventService.getEvents(params));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HackathonEventDetailsResponseDTO> getEventDetails(@PathVariable Long id) {
+        return ResponseEntity.ok(eventService.getEventDetails(id));
     }
 
     @PatchMapping("/{id}/status")

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,10 +19,15 @@ public class EventImportItem {
     private EventType eventType;
     private WorkMode workMode;
     private String city;
-    private String theme;
+    private List<String> themes;
+    private List<String> problemStatements;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDate registrationDeadline;
+    private boolean studentAllowed;
     private boolean professionalAllowed;
+    private Integer minTeamSize;
+    private Integer maxTeamSize;
     private String registrationLink;
+    private List<HackathonPhaseImportItem> phases;
 }

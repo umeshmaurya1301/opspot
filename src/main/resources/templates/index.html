@@ -42,6 +42,14 @@
             class="tab-btn px-5 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition-colors">
             🤖 AI Tool Offers
         </button>
+        <button onclick="switchTab('marathons')" id="tab-marathons"
+            class="tab-btn px-5 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition-colors">
+            🏃 Marathons
+        </button>
+        <button onclick="switchTab('prompts')" id="tab-prompts"
+            class="tab-btn px-5 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition-colors">
+            ✨ AI Prompts
+        </button>
     </div>
 </nav>
 
@@ -283,6 +291,73 @@
     </div>
 </div>
 
+<!-- ===================== MARATHONS PANEL ===================== -->
+<div id="panel-marathons" class="tab-panel p-6">
+    <div class="bg-gray-800 border border-gray-700 rounded-xl p-4 mb-5">
+        <div class="flex flex-wrap gap-3 items-end">
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Distance</label>
+                <input id="mr-distanceCategory" type="text" placeholder="e.g. 10K"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-28">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Pricing</label>
+                <select id="mr-isFree" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+                    <option value="">All</option>
+                    <option value="true">Free Only</option>
+                    <option value="false">Paid Only</option>
+                </select>
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Max Fee (₹)</label>
+                <input id="mr-maxFee" type="number" min="0" placeholder="e.g. 1500"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 w-32">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Date From</label>
+                <input id="mr-dateFrom" type="date"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-xs text-gray-400">Date To</label>
+                <input id="mr-dateTo" type="date"
+                    class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-36">
+            </div>
+            <div class="flex items-center gap-2 pb-0.5">
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="mr-showRejected" class="sr-only peer" onchange="fetchMarathons()">
+                    <div class="w-9 h-5 bg-gray-600 rounded-full peer peer-checked:bg-indigo-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-4"></div>
+                </label>
+                <span class="text-xs text-gray-400">Show Skipped</span>
+            </div>
+            <div class="flex gap-2 ml-auto">
+                <button onclick="fetchMarathons()"
+                    class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition-colors">
+                    Fetch Results
+                </button>
+                <button onclick="openImportModal('marathons')"
+                    class="px-4 py-1.5 bg-gray-700 hover:bg-gray-600 text-gray-200 text-sm font-medium rounded-lg border border-gray-600 transition-colors">
+                    Import JSON
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="marathons-results" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-600">
+            <p class="text-sm">Use filters and click "Fetch Results", or "Import JSON" to load data.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== PROMPTS PANEL ===================== -->
+<div id="panel-prompts" class="tab-panel p-6">
+    <div class="mb-5">
+        <h2 class="text-base font-semibold text-white mb-1">AI Prompts</h2>
+        <p class="text-xs text-gray-400">Copy a prompt below and paste it into <span class="text-indigo-400">Gemini</span> or <span class="text-indigo-400">ChatGPT</span> to generate import-ready JSON. Then use the <span class="text-indigo-400">Import JSON</span> button on the corresponding tab.</p>
+    </div>
+    <div id="prompts-results" class="grid grid-cols-1 xl:grid-cols-2 gap-4"></div>
+</div>
+
 <!-- ===================== IMPORT MODAL ===================== -->
 <div id="import-modal" class="hidden fixed inset-0 z-40 flex items-center justify-center">
     <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeImportModal()"></div>
@@ -291,7 +366,7 @@
             <h2 class="text-base font-semibold text-white">Import JSON</h2>
             <button onclick="closeImportModal()" class="text-gray-400 hover:text-white transition-colors text-lg">✕</button>
         </div>
-        <p class="text-xs text-gray-400 mb-3">Paste the JSON from Gemini below. Use the schema from <code class="text-indigo-400">docs/json-schemas/</code> as your prompt template.</p>
+        <p class="text-xs text-gray-400 mb-3">Paste the JSON generated by Gemini or ChatGPT. Need a prompt? Check the <button onclick="closeImportModal(); switchTab('prompts')" class="text-indigo-400 hover:underline">✨ AI Prompts</button> tab.</p>
         <textarea id="import-json-input" rows="14"
             placeholder='{ "items": [ { ... } ] }'
             class="w-full bg-gray-900 border border-gray-600 rounded-xl px-4 py-3 text-sm text-gray-100 font-mono placeholder-gray-600 focus:outline-none focus:border-indigo-500 resize-none"></textarea>
@@ -317,8 +392,11 @@
 <script src="/js/jobs.js"></script>
 <script src="/js/course-offers.js"></script>
 <script src="/js/ai-offers.js"></script>
+<script src="/js/marathons.js"></script>
+<script src="/js/prompts.js"></script>
 <script>
     switchTab('events');
+    renderPrompts();
 </script>
 </body>
 </html>
